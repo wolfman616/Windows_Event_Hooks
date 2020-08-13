@@ -17,7 +17,7 @@ EventX=%EVENT_SYSTEM_DIALOGSTART%
 hWinEventHook := DllCall("SetWinEventHook", "UInt", EventX, "UInt", EventX, "Ptr", 0, "Ptr", (lpfnWinEventProc := RegisterCallback("OnEventX", "")), "UInt", 0, "UInt", 0, "UInt", WINEVENT_OUTOFCONTEXT := 0x0000 | WINEVENT_SKIPOWNPROCESS := 0x0002)
 
 OnEventX(hWinEventHook, event, hWnd, idObject, idChild, dwEventThread, dwmsEventTime) {
-tooltip NIGGER %event% %idObject% %idChild%
+tooltip Event : %event%`n%idObject%`n%idChild%
 }
 return
 
