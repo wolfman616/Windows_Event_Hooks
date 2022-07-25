@@ -1,9 +1,27 @@
 ﻿#persistent
 #singleinstance force
-gosub Event_ids
-Hook:
+gosub varz
 
+main:
 OnExit("AtExit")
+EventX:=0x800E
+;EVENT_SYSTEM_MOVESIZESTART
+hWinEventHook := DllCall("SetWinEventHook", "UInt", EventX, "UInt", EventX, "Ptr", 0, "Ptr", (lpfnWinEventProc := RegisterCallback("OnEventX", "")), "UInt", 0, "UInt", 0, "UInt", WINEVENT_OUTOFCONTEXT := 0x0000 | WINEVENT_SKIPOWNPROCESS := 0x0002)
+Shellhook_stuff:
+gui, Slav3:	 New                                  ; Dummy gui to reg SH_WM_
+gui, Slav3: +LastFound +hwnd_Hw1nd  ; Hw1nd := WinExist() also works
+gui, Slav3:	 Show,,% "SHELLHOOK"
+gui, Slav3:	 Hide
+DllCall("RegisterShellHookWindow", "UInt", _Hw1nd ) 
+u_Msg_id  := DllCall("RegisterWindowMessage",   "Str" ,  "SHELLHOOK")
+if errorlevel {
+	msgbox, 0x0 ,% "shellhook",% "error"
+	exitapp,
+} else, OnMessage( u_Msg_id,"74iLHo0k" )
+return,
+
+;=========================================================================================================
+
 AtExit() {
 	global hWinEventHook, lpfnWinEventProc
 	if (hWinEventHook)
@@ -13,23 +31,94 @@ AtExit() {
 	return 0
 	}
 
-EventX=%EVENT_SYSTEM_DIALOGSTART%
-hWinEventHook := DllCall("SetWinEventHook", "UInt", EventX, "UInt", EventX, "Ptr", 0, "Ptr", (lpfnWinEventProc := RegisterCallback("OnEventX", "")), "UInt", 0, "UInt", 0, "UInt", WINEVENT_OUTOFCONTEXT := 0x0000 | WINEVENT_SKIPOWNPROCESS := 0x0002)
-
 OnEventX(hWinEventHook, event, hWnd, idObject, idChild, dwEventThread, dwmsEventTime) {
-tooltip Event : %event%`n%idObject%`n%idChild%
+	tt( eventid " " Object " " idChild, 1000 )
 }
-return
 
+74iLHo0k( wParam , lParam ) {
+	global TrayFullCnt
+	global Tray_oldcnt
+	WinGet,      pname,% "ProcessName",% (hwand := ("ahk_id " . (Format("{:#x}", lParam))))
+	wingetClass, Clas5,%      hwand 
+	wingettitle, Title_last,% hwand 	
+	switch wParam {		
+		case "1": ; HSHELL_WINDOWCREATED
+			TrayFullCnt:=TrayCount(delaytime := 1000)	
+			if !Tray_oldcnt
+				Tray_oldcnt    :=  TrayFullCnt
+			if  (TrayFullCnt !=  Tray_oldcnt)
+				settimer, TrAnIconZ_Refresh,-1 ;or settimer or make a func
+		case "2": ; HSHELL_WINDOWDESTROYED	
+			Tray_oldcnt := TrayCount()		
+}	}
 
+varz:
+;shellhookstuff 
+1 = HSHELL_WINDOWCREATED
+2 = HSHELL_WINDOWDESTROYED (Window hidden or destroyed)
+3 = HSHELL_ACTIVATESHELLWINDOW
+4 = HSHELL_WINDOWACTIVATED (handle to the activated window)
+5 = HSHELL_GETMINRECT
+6 = HSHELL_REDRAW
+7 = HSHELL_TASKMAN
+8 = HSHELL_LANGUAGE
+9 = HSHELL_SYSMENU
+10 = HSHELL_ENDTASK
+11 = HSHELL_ACCESSIBILITYSTATE
+12 = HSHELL_APPCOMMAND
+13 = HSHELL_WINDOWREPLACED
+14 = HSHELL_WINDOWREPLACING
+15 = HSHELL_HIGHBIT
+16 = HSHELL_FLASH
+17 = HSHELL_RUDEAPPACTIVATED
+32772 = HSHELL_RUDEAPPACTIVATED (handle to the activated window)
 
+APPCOMMAND_BROWSER_BACKWARD = 1
+APPCOMMAND_BROWSER_FORWARD = 2
+APPCOMMAND_BROWSER_REFRESH = 3
+APPCOMMAND_BROWSER_STOP = 4
+APPCOMMAND_BROWSER_SEARCH = 5
+APPCOMMAND_BROWSER_FAVORITES = 6
+APPCOMMAND_BROWSER_HOME = 7
+APPCOMMAND_VOLUME_MUTE = 8
+APPCOMMAND_VOLUME_DOWN = 9
+APPCOMMAND_VOLUME_UP = 10
+APPCOMMAND_MEDIA_NEXTTRACK = 11
+APPCOMMAND_MEDIA_PREVIOUSTRACK = 12
+APPCOMMAND_MEDIA_STOP = 13
+APPCOMMAND_MEDIA_PLAY_PAUSE = 14
+APPCOMMAND_LAUNCH_MAIL = 15
+APPCOMMAND_LAUNCH_MEDIA_SELECT = 16
+APPCOMMAND_LAUNCH_APP1 = 17
+APPCOMMAND_LAUNCH_APP2 = 18
+APPCOMMAND_BASS_DOWN = 19
+APPCOMMAND_BASS_BOOST = 20
+APPCOMMAND_BASS_UP = 21
+APPCOMMAND_TREBLE_DOWN = 22
+APPCOMMAND_TREBLE_UP = 23
+APPCOMMAND_MICROPHONE_VOLUME_MUTE = 24
+APPCOMMAND_MICROPHONE_VOLUME_DOWN = 25
+APPCOMMAND_MICROPHONE_VOLUME_UP = 26
+APPCOMMAND_HELP = 27
+APPCOMMAND_FIND = 28
+APPCOMMAND_NEW = 29
+APPCOMMAND_OPEN = 30
+APPCOMMAND_CLOSE = 31
+APPCOMMAND_SAVE = 32
+APPCOMMAND_PRINT = 33
+APPCOMMAND_UNDO = 34
+APPCOMMAND_REDO = 35
+APPCOMMAND_COPY = 36
+APPCOMMAND_CUT = 37
+APPCOMMAND_PASTE = 38
+APPCOMMAND_REPLY_TO_MAIL = 39
+APPCOMMAND_FORWARD_MAIL = 40
+APPCOMMAND_SEND_MAIL = 41
+APPCOMMAND_SPELL_CHECK = 42
+APPCOMMAND_DICTATE_OR_COMMAND_CONTROL_TOGGLE = 43
+APPCOMMAND_MIC_ON_OFF_TOGGLE = 44
+APPCOMMAND_CORRECTION_LIST = 45
 
-
-
-
-
-
-Event_ids:
 ;Event Ranges  of WinEvent constant values specified by AIA for use across the industry. 
 EVENT_AIA_START := 0xA000
 EVENT_AIA_END := 0xAFFF
@@ -322,5 +411,5 @@ EVENT_SYSTEM_SWITCHSTART:=0x0014
 ; If only one application is running when the user presses ALT+TAB, the system sends an EVENT_SYSTEM_SWITCHEND event without a corresponding EVENT_SYSTEM_SWITCHSTART event.
 
 
-gosub Hook
+gosub Twatter
 
