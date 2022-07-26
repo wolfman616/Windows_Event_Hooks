@@ -13,46 +13,46 @@ event1 := ("EVENT_OBJECT_ACCELERATORCHANGE|0x8012|An object's KeyboardShortcut p
 event2 := ("EVENT_OBJECT_SELECTION|0x8006|The selection within a container object has changed. The system sends this event for the following user interface elements: list-view control, tab control, tree view control, and window object. Server applications send this event for their accessible objects. This event signals a single selection: either a child is selected in a container that previously did not contain any selected children, or the selection has changed from one child to another.  The hwnd and idObject parameters of the WinEventProc callback function describe the container  the idChild parameter identifies the object that is selected. If the selected child is a window that also contains objects, the idChild parameter is OBJID_WINDOW.¬EVENT_OBJECT_SELECTIONADD|0x8007|A child within a container object has been added to an existing selection. The system sends this event for the following user interface elements: list box, list-view control, and tree view control. Server applications send this event for their accessible objects.  The hwnd and idObject parameters of the WinEventProc callback function describe the container. The idChild parameter is the child that is added to the selection.¬EVENT_OBJECT_SELECTIONREMOVE|0x8008|An item within a container object has been removed from the selection. The system sends this event for the following user interface elements: list box, list-view control, and tree view control. Server applications send this event for their accessible objects.  This event signals that a child is removed from an existing selection.  The hwnd and idObject parameters of the WinEventProc callback function describe the container  the idChild parameter identifies the child that has been removed from the selection.¬EVENT_OBJECT_SELECTIONWITHIN|0x8009|Numerous selection changes have occurred within a container object. The system sends this event for list boxes  server applications send it for their accessible objects.	  This event is sent when the selected items within a control have changed substantially. The event informs the client that many selection changes have occurred, and it is sent instead of several EVENT_OBJECT_SELECTIONADD or EVENT_OBJECT_SELECTIONREMOVE events. The client queries for the selected items by calling the container object's IAccessible::get_accSelection method and enumerating the selected items.  For this event notification, the hwnd and idObject parameters of the WinEventProc callback function describe the container in which the changes occurred.¬EVENT_OBJECT_SHOW|0x8002|A hidden object is shown. The system sends this event for the following user interface elements: caret, cursor, and window object. Server applications send this event for their accessible objects.  Clients assume that when this event is sent by a parent object, all child objects are already displayed. Therefore, server applications do not send this event for the child objects.  Hidden objects include the STATE_SYSTEM_INVISIBLE flag  shown objects do not include this flag. The EVENT_OBJECT_SHOW event also indicates that the STATE_SYSTEM_INVISIBLE flag is cleared. Therefore, servers do not send the EVENT_STATE_CHANGE event in this case.¬EVENT_OBJECT_STATECHANGE|0x800A|An object's state has changed. The system sends this event for the following user interface elements: check box, combo box, header control, push button, radio button, scroll bar, toolbar control, tree view control, up-down control, and window object. Server applications send this event for their accessible objects.	  For example, a state change occurs when a button object is clicked or released, or when an object is enabled or disabled.	  For this event notification, the idChild parameter of the WinEventProc callback function identifies the child object whose state has changed.¬EVENT_OBJECT_TEXTEDIT_CONVERSIONTARGETCHANGED|0x8030|The conversion target within an IME composition has changed. The conversion target is the subset of the IME composition which is actively selected as the target for user-initiated conversions.¬EVENT_OBJECT_TEXTSELECTIONCHANGED|0x8014|An object's text selection has changed. This event is supported by common controls and is used by UI Automation.  The hwnd, ID, and idChild parameters of the WinEventProc callback function describe the item that is contained in the updated text selection.¬EVENT_OBJECT_UNCLOAKED|0x8018|Sent when a window is uncloaked. A cloaked window still exists, but is invisible to the user.¬EVENT_OBJECT_VALUECHANGE|0x800E|An object's Value property has changed. The system sends this event for the user interface elements that include the scroll bar and the following controls: edit, header, hot key, progress bar, slider, and up-down. Server applications send this event for their accessible objects.¬EVENT_SYSTEM_ALERT|0x0002|An alert has been generated. Server applications should not send this event.¬EVENT_SYSTEM_ARRANGMENTPREVIEW|0x8016|A preview rectangle is being displayed.¬EVENT_SYSTEM_CAPTUREEND|0x0009|A window has lost mouse capture. This event is sent by the system, never by servers.¬EVENT_SYSTEM_CAPTURESTART|0x0008|A window has received mouse capture. This event is sent by the system, never by servers.¬EVENT_SYSTEM_CONTEXTHELPEND|0x000D|A window has exited context-sensitive Help mode. This event is not sent consistently by the system.¬EVENT_SYSTEM_CONTEXTHELPSTART|0x000C|A window has entered context-sensitive Help mode. This event is not sent consistently by the system.¬EVENT_SYSTEM_DESKTOPSWITCH|0x0020|The active desktop has been switched.¬EVENT_SYSTEM_DIALOGEND|0x0011|A dialog box has been closed. The system sends this event for standard dialog boxes  servers send it for custom dialog boxes. This event is not sent consistently by the system.¬EVENT_SYSTEM_DIALOGSTART|0x0010|A dialog box has been displayed. The system sends this event for standard dialog boxes, which are created using resource templates or Win32 dialog box functions. Servers send this event for custom dialog boxes, which are windows that function as dialog boxes but are not created in the standard way.  This event is not sent consistently by the system.¬EVENT_SYSTEM_DRAGDROPEND|0x000F|An application is about to exit drag-and-drop mode. Applications that support drag-and-drop operations must send this event the system does not send this event.¬EVENT_SYSTEM_DRAGDROPSTART|0x000E|An application is about to enter drag-and-drop mode. Applications that support drag-and-drop operations must send this event because the system does not send it.¬EVENT_SYSTEM_END|0x00FF|The highest system event value.¬EVENT_SYSTEM_FOREGROUND|0x0003|The foreground window has changed. The system sends this event even if the foreground window has changed to another window in the same thread. Server applications never send this event.	For this event, the WinEventProc callback function's hwnd parameter is the handle to the window that is in the foreground, the idObject parameter is OBJID_WINDOW, and the idChild parameter is CHILDID_SELF.¬EVENT_SYSTEM_MENUPOPUPEND|0x0007|A pop-up menu has been closed. The system sends this event for standard menus  servers send it for custom menus.  When a pop-up menu is closed, the client receives this message, and then the EVENT_SYSTEM_MENUEND event.	This event is not sent consistently by the system.¬EVENT_SYSTEM_MENUPOPUPSTART|0x0006|A pop-up menu has been displayed. The system sends this event for standard menus, which are identified by HMENU, and are created using menu-template resources or Win32 menu functions. Servers send this event for custom menus, which are user interface elements that function as menus but are not created in the standard way. This event is not sent consistently by the system.¬EVENT_SYSTEM_MENUEND|0x0005|A menu from the menu bar has been closed. The system sends this event for standard menus  servers send it for custom menus.  For this event, the WinEventProc callback function's hwnd, idObject, and idChild parameters refer to the control that contains the menu bar or the control that activates the context menu. The hwnd parameter is the handle to the window that is related to the event. The idObject parameter is OBJID_MENU or OBJID_SYSMENU for a menu, or OBJID_WINDOW for a pop-up menu. The idChild parameter is CHILDID_SELF.¬EVENT_SYSTEM_MENUSTART|0x0004|A menu item on the menu bar has been selected. The system sends this event for standard menus, which are identified by HMENU, created using menu-template resources or Win32 menu API elements. Servers send this event for custom menus, which are user interface elements that function as menus but are not created in the standard way.	For this event, the WinEventProc callback function's hwnd, idObject, and idChild parameters refer to the control that contains the menu bar or the control that activates the context menu. The hwnd parameter is the handle to the window related to the event. The idObject parameter is OBJID_MENU or OBJID_SYSMENU for a menu, or OBJID_WINDOW for a pop-up menu. The idChild parameter is CHILDID_SELF.	The system triggers more than one EVENT_SYSTEM_MENUSTART event that does not always correspond with the EVENT_SYSTEM_MENUEND event.¬EVENT_SYSTEM_MINIMIZEEND|0x0017|A window object is about to be restored. This event is sent by the system, never by servers.¬EVENT_SYSTEM_MINIMIZESTART|0x0016|A window object is about to be minimized. This event is sent by the system, never by servers.¬EVENT_SYSTEM_MOVESIZEEND|0x000B|The movement or resizing of a window has finished. This event is sent by the system, never by servers.¬EVENT_SYSTEM_MOVESIZESTART|0x000A|A window is being moved or resized. This event is sent by the system, never by servers.¬EVENT_SYSTEM_SCROLLINGEND|0x0013|Scrolling has ended on a scroll bar. This event is sent by the system for standard scroll bar controls and for scroll bars that are attached to a window. Servers send this event for custom scroll bars, which are user interface elements that function as scroll bars but are not created in the standard way.  The idObject parameter that is sent to the WinEventProc callback function is OBJID_HSCROLL for horizontal scroll bars, and OBJID_VSCROLL for vertical scroll bars.¬EVENT_SYSTEM_SCROLLINGSTART|0x0012|Scrolling has started on a scroll bar. The system sends this event for standard scroll bar controls and for scroll bars attached to a window. Servers send this event for custom scroll bars, which are user interface elements that function as scroll bars but are not created in the standard way.  The idObject parameter that is sent to the WinEventProc callback function is OBJID_HSCROLL for horizontal scrolls bars, and OBJID_VSCROLL for vertical scroll bars.¬EVENT_SYSTEM_SOUND|0x0001|A sound has been played. The system sends this event when a system sound, such as one for a menu, is played even if no sound is audible for example, due to the lack of a sound file or a sound card. Servers send this event whenever a custom UI element generates a sound.  For this event, the WinEventProc callback function receives the OBJID_SOUND value as the idObject parameter.¬EVENT_SYSTEM_SWITCHEND|0x0015|The user has released ALT+TAB. This event is sent by the system, never by servers. The hwnd parameter of the WinEventProc callback function identifies the window to which the user has switched.  If only one application is running when the user presses ALT+TAB, the system sends this event without a corresponding EVENT_SYSTEM_SWITCHSTART event.¬EVENT_SYSTEM_SWITCHSTART|0x0014|The user has pressed ALT+TAB, which activates the switch window. This event is sent by the system, never by servers. The hwnd parameter of the WinEventProc callback function identifies the window to which the user is switching.  If only one application is running when the user presses ALT+TAB, the system sends an EVENT_SYSTEM_SWITCHEND event without a corresponding EVENT_SYSTEM_SWITCHSTART event.")
 
 createeventgui:
+alignment := "C" ; default justification
+
 Split_Head :=  "OBJECT_REORDER,ECT_END"
 Split_Tail :=  "DRAGCANCEL,ECT_END"
 
 
-loop, parse,% "event1,event2", `,
-	loop, parse, %A_loopfield%, ¬,
+loop, parse,% "event1,event2",    `,
+	loop, parse, %A_loopfield%,   ¬,
 		loop, parse, A_loopfield, |,
-			switch A_index {
+			switch A_index        {
 				case 1:
-					eventname:= substr(A_loopfield, 14) ; trim off the prefix EVENT_OBJECT_
+					eventname:= substr(A_loopfield, 14) ; trim off prefix "EVENT_OBJECT_"
 				case 2:
-					eventcode:= A_loopfield
+					eventcode:= A_loopfield ; event dword
 				case 3:
 					winevents[eventname]  :=  eventcode 
-					leng := StrLen(A_loopfield)		
-					if (leng > 99 )                    { 
-						mainstring:= ""
-						aiold     :=  1
-						loop,% ( lo0 := (ceil((leng*0.01) ) ) )
+					eventTLen := StrLen(A_loopfield)		
+					if (eventTLen > 99 )                { 
+						Descstr1:= "" ; the rest is the description string
+						loop,% ( the99 := (ceil((eventTLen*0.01) ) ) )
 						{
-							if (a_index = "1")         {
-								if (a_index = lo0)
-									  mainstring := (SubStr(A_loopfield, 1)) ; . "END CUNTTT"
-								else, mainstring := (SubStr(A_loopfield, 1, 100)) . "`n"
+							if (a_index = "1")          {
+								if (a_index = the99)
+									  Descstr1 := (SubStr(A_loopfield, 1)) ; . "END CUNTTT"
+								else, Descstr1 := (SubStr(A_loopfield, 1, 100)) . "`n"
 							} else {
-								if (a_index = lo0)     {
-									azss :=(SubStr(A_loopfield, ((a_index -1) * 100)))
-									mainstring := mainstring . azss ; . "END CUNT"
+								if (a_index = the99)    {
+									align_offset :=(SubStr(A_loopfield, ((a_index -1) * 100)))
+									Descstr1 := Descstr1 . align_offset ; . "END CUNT"
 								} else {
-									if(a_index != lo0) {
-										nigger := SubStr(A_loopfield, ((a_index -1) * 100), 100)
-										mainstring := (mainstring . nigger . "`n")
+									if(a_index != the99){
+										Descstr2 := SubStr(A_loopfield, ((a_index -1) * 100), 100)
+										Descstr1 := (Descstr1 . Descstr2 . "`n")
 						}	}	}	} 
-						    winevents_i[eventname]  :=  mainstring
+						    winevents_i[eventname]  :=  Descstr1
 					} else, winevents_i[eventname]  :=  A_loopfield
 			}
-
 sleep, 200
+
 global TBBUTTON, vCount, extension_set, alignment, Gui_W, GuiRolled, Gui_sysL_H, Gui_sys_H
-alignment := "C"
 ;tray
 menu, tray,     icon,%  "C:\Script\AHK\APP_COG.ico"
 menu, M_align,   add,%  "Left",   Align_l
@@ -124,7 +124,7 @@ Gui, Gui_sys: Menu, MenuBar
 ;RICHEDIT50W
 hModuleME := DllCall("kernel32.dll\LoadLibrary", Str,"msftedit.dll", Ptr)
 vPos := "y35" 
-Gui, Gui_sys:Add, Custom , x0 y0 ClassToolbarWindow32 0x100 ;TBSTYLE_TOOLTIPS := 0x100 | (TBSTYLE_LIST:=0x1000) ;text to side of buttons
+Gui, Gui_sys:Add, Custom, x0 y0 ClassToolbarWindow32 0x100 ;TBSTYLE_TOOLTIPS := 0x100 | (TBSTYLE_LIST:=0x1000) ;text to side of buttons
 ControlGet,  hTB, Hwnd,, ToolbarWindow321, % "ahk_id " Windle
 SendMessage, 0x43C, 0, 0,, % "ahk_id " hTB ;TB_SETMAXTEXTROWS ;text omitted from buttons; ;note: if more than one button has the same idCommand, then only the last button with that idCommand will have make the call.
 vCount := 5, vSize := A_PtrSize=8?32:20
@@ -173,9 +173,6 @@ OnMessage(0x111, "WM_COMMAND")
 return
 
 ;if Gui_extended 
-
-;poop("Gui_sys", Windle)
-
 switch alignment {
 	case "L":
 		na:=" x5 y57 "
@@ -202,7 +199,7 @@ extension_toggle:
 tooltip cujtn
 extension_set:=!extension_set
 goto GoGoGadget_Gui 
-return
+return,
 
 ~Escape::
 if !(winactive("ahk_id " Windle))
@@ -236,13 +233,8 @@ menu, M_align, Uncheck,%  "Left"
 menu, M_align, Uncheck,%  "Center"  
 return,
 
-
-
-	
-
 MyMenuLabel:
-tooltip poop
-return
+return,
 
 WM_COMMAND(wParam, lParam, uMsg, hWnd)
 {
@@ -282,10 +274,6 @@ WM_COMMAND(wParam, lParam, uMsg, hWnd)
 			
 			Loop, % vCount
 			{
-			;if a_index = wParam +1
-		;	{
-		;	fukoff:= 0x4
-		;	}
 				vTxt%A_Index% := "TB " A_Index
 				vOffset := (A_Index-1)*vSize
 				;TBSTATE_ENABLED := 4
@@ -295,15 +283,12 @@ WM_COMMAND(wParam, lParam, uMsg, hWnd)
 				NumPut(&vTxt%A_Index%, TBBUTTON, vOffset+(A_PtrSize=8?24:16), "Ptr") ;iString
 			}
 				;NumPut(0x4,            TBBUTTON, vOffset+8, "UChar")                 ;fsState
-			}
+		}
 		Sleep 1500
 		ToolTip
 	}
 }
 
-poop(gname, hGUI){
-global
-}
 	tooloff:
 	tooltip,
 	return,
