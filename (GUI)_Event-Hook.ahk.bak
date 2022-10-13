@@ -24,7 +24,7 @@ loop, parse,% "event1,event2",    `,
 						{
 							if (a_index = "1")          {
 								if (a_index = the99)
-									  Descstr1 := (SubStr(A_loopfield, 1)) ; . "END"
+									  Descstr1 := (SubStr(A_loopfield, 1)) ; . "END CUNTTT"
 								else, Descstr1 := (SubStr(A_loopfield, 1, 100)) . "`n"
 							} else {
 								if (a_index = the99)    {
